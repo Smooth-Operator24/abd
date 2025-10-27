@@ -1,0 +1,47 @@
+library(igraph)
+data &lt;- read.csv(&quot;socialnetworkdata.csv&quot;, header=T)
+y &lt;- data.frame(data$first, data$second)
+net &lt;- graph.data.frame(y, directed=T)
+V(net)$label &lt;- V(net)$name
+V(net)$degree &lt;- degree(net)
+hist(V(net)$degree,
+col = &#39;green&#39;,
+main = &#39;Histogram of Node Degree&#39;,
+ylab = &#39;Frequency&#39;,
+xlab = &#39;Degree of Vertices&#39;)
+
+set.seed(222)
+plot(net,
+vertex.color = &#39;green&#39;,
+vertext.size = 2,
+edge.arrow.size = 0.1,
+vertex.label.cex = 0.8)
+
+plot(net,
+vertex.color = rainbow(52),
+vertex.size = V(net)$degree*0.4,
+edge.arrow.size = 0.1,
+layout=layout.fruchterman.reingold)
+
+plot(net,
+vertex.color = rainbow(52),
+vertex.size = V(net)$degree*0.4,
+edge.arrow.size = 0.1,
+layout=layout.graphopt)
+
+plot(net,
+vertex.color = rainbow(52),
+vertex.size = V(net)$degree*0.4,
+edge.arrow.size = 0.1,
+layout=layout.kamada.kawai)
+
+hs &lt;- hub_score(net)$vector
+as &lt;- authority.score(net)$vector
+set.seed(123)
+plot(net,
+vertex.size=hs*30,
+
+main = &#39;Hubs&#39;,
+vertex.color = rainbow(52),
+edge.arrow.size=0.1,
+layout = layout.kamada.kawai)

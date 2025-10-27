@@ -1,0 +1,85 @@
+# ===============================
+# STEP 1: Install R in Colab
+# ===============================
+!apt-get install -y r-base
+
+# ===============================
+# STEP 2: Install Python–R bridge
+# ===============================
+!pip install -q rpy2==3.5.11
+
+# ===============================
+# STEP 3: Load the R extension
+# ===============================
+%load_ext rpy2.ipython
+
+# ============================================================
+# STEP 4: Run Individual R Scripts Using %%R Magic
+# ============================================================
+
+# -------------------------------
+# Script 1 — Basic Arithmetic
+# -------------------------------
+%%R
+cat("=== Script 1: Basic Arithmetic ===\n")
+a <- 10
+b <- 5
+sum_result <- a + b
+sub_result <- a - b
+cat("Sum:", sum_result, "\nDifference:", sub_result, "\n")
+
+# -------------------------------
+# Script 2 — Data Frame Operations
+# -------------------------------
+%%R
+cat("=== Script 2: Data Frame Operations ===\n")
+students <- data.frame(
+  Name = c("Amit", "Priya", "Raj"),
+  Marks = c(85, 92, 78)
+)
+print(students)
+cat("Average Marks:", mean(students$Marks), "\n")
+
+# -------------------------------
+# Script 3 — Conditional Statements
+# -------------------------------
+%%R
+cat("=== Script 3: Conditional Statements ===\n")
+score <- 88
+if (score >= 90) {
+  cat("Grade: A\n")
+} else if (score >= 80) {
+  cat("Grade: B\n")
+} else {
+  cat("Grade: C\n")
+}
+
+# -------------------------------
+# Script 4 — Plotting Example
+# -------------------------------
+%%R
+cat("=== Script 4: Plotting Example ===\n")
+x <- c(1, 2, 3, 4, 5)
+y <- c(2, 4, 6, 8, 10)
+plot(x, y, type="o", col="darkgreen", main="Simple Linear Plot", xlab="X Values", ylab="Y Values")
+
+# -------------------------------
+# Script 5 — File Handling Example
+# -------------------------------
+%%R
+cat("=== Script 5: File Handling Example ===\n")
+data <- data.frame(ID = 1:3, Name = c("Alice", "Bob", "Charlie"), Score = c(90, 85, 95))
+write.csv(data, "output.csv", row.names=FALSE)
+cat("Data written to output.csv\n")
+
+# To verify file creation:
+cat("Files in current directory:\n")
+print(list.files())
+
+# ============================================================
+# EXECUTION GUIDE (for reference)
+# ============================================================
+# 1️⃣ Run this entire cell once — it installs R, loads rpy2, and executes 5 R scripts.
+# 2️⃣ Each "%%R" block runs a separate R script section.
+# 3️⃣ You’ll see all outputs (print + plots) inline in Colab.
+# 4️⃣ To rerun any individual script, copy its section and execute separately.

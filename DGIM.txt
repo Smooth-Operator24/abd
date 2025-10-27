@@ -1,0 +1,72 @@
+# DGIM Algorithm Implementation with User Input (Colab Friendly)
+
+class DGIM:
+    def __init__(self, window_size):
+        self.window_size = window_size
+        self.buckets = []          # List of (timestamp, size)
+        self.current_time = 0      # Keeps track of total bits seen
+
+    def _expire_buckets(self):
+        """Remove buckets older than window size."""
+        valid_time = self.current_time - self.window_size
+        self.buckets = [(t, s) for (t, s) in self.buckets if t > valid_time]
+
+    def _merge_buckets(self):
+        """Ensure no more than two buckets of the same size."""
+        i = 0
+        while i < len(self.buckets) - 2:
+            if (self.buckets[i][1] == self.buckets[i + 1][1] ==
+                self.buckets[i + 2][1]):
+                new_bucket = (self.buckets[i + 1][0], self.buckets[i][1] * 2)
+                del self.buckets[i:i + 2]
+                self.buckets.insert(i, new_bucket)
+            else:
+                i += 1
+
+    def add_bit(self, bit):
+        """Add a new bit (0 or 1) to the stream."""
+        self.current_time += 1
+        if bit == 1:
+            self.buckets.insert(0, (self.current_time, 1))
+            self._merge_buckets()
+        self._expire_buckets()
+
+    def count_recent_ones(self, k):
+        """Estimate number of 1s in the last k bits."""
+        count = 0
+        threshold_time = self.current_time - k
+        for i, (t, s) in enumerate(self.buckets):
+            if t > threshold_time:
+                count += s
+            else:
+                # Add half of the last bucket partially covered by the window
+                count += s / 2
+                break
+        return int(count)
+
+
+# ------------------------------
+# USER INPUT SECTION
+# ------------------------------
+
+# Input binary stream
+stream_input = input("Enter a binary data stream (e.g., 1011010110): ").strip()
+stream = [int(b) for b in stream_input if b in ['0', '1']]
+
+# Input window size
+window_size = int(input("Enter window size (e.g., 10): "))
+
+# Initialize DGIM
+dgim = DGIM(window_size=window_size)
+
+# Input k value for estimation
+k = int(input("Enter k (to estimate number of 1s in last k bits): "))
+
+# Process the stream
+print("\nProcessing Stream...")
+for bit in stream:
+    dgim.add_bit(bit)
+    print(f"Bit: {bit} | Estimated 1s in last {k} bits: {dgim.count_recent_ones(k)}")
+
+# Final output
+print(f"\nFinal estimated number of 1s in last {k} bits: {dgim.count_recent_ones(k)}")

@@ -1,0 +1,17 @@
+| Sr No | Description                                  | Command                                                                             |
+| ----- | -------------------------------------------- | ----------------------------------------------------------------------------------- |
+| 1     | Show all databases                           | show dbs;                                                                           |
+| 2     | Create or switch to a database               | use database_name;                                                                  |
+| 3     | Show all collections in the current database | show collections;                                                                   |
+| 4     | Create a new collection                      | db.createCollection("collection_name");                                             |
+| 5     | Drop (delete) a collection                   | db.collection_name.drop();                                                          |
+| 6     | Insert a single document                     | db.collection_name.insertOne({ key1: "value1", key2: "value2" });                   |
+| 7     | Insert multiple documents                    | db.collection_name.insertMany([{ key1: "value1" }, { key1: "value2" }]);            |
+| 8     | Display all documents in a collection        | db.collection_name.find();                                                          |
+| 9     | Display documents in formatted (pretty) way  | db.collection_name.find().pretty();                                                 |
+| 10    | Find specific document(s)                    | db.collection_name.find({ key: "value" });                                          |
+| 11    | Update a document                            | db.collection_name.updateOne({ key: "old_value" }, { $set: { key: "new_value" } }); |
+| 12    | Delete a document                            | db.collection_name.deleteOne({ key: "value" });                                     |
+| 13    | Delete all documents in a collection         | db.collection_name.deleteMany({});                                                  |
+| 14    | Count total documents in a collection        | db.collection_name.countDocuments();                                                |
+| 15    | Drop the current database                    | db.dropDatabase();                                                                  |

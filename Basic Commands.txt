@@ -1,0 +1,12 @@
+| Sr No. | Description                                    | Command                                                              |
+| ------ | ---------------------------------------------- | -------------------------------------------------------------------- |
+| 1      | Help                                           | hdfs dfs -help ls                                                    |
+| 2      | List files in root directory                   | hdfs dfs -ls /                                                       |
+| 3      | Create a new directory                         | hdfs dfs -mkdir /myfile                                              |
+| 4      | List contents of a specific directory          | hdfs dfs -ls /myfile                                                 |
+| 5      | List files and directories recursively         | hdfs dfs -ls -R /                                                    |
+| 6      | Copy file from local system to HDFS            | hdfs dfs -put /home/cloudera/Desktop/newfile.txt /myfile/newfile.txt |
+| 7      | Retrieve (copy) file from HDFS to local system | hdfs dfs -get /myfile/newfile.txt /home/cloudera/Desktop/newfile.txt |
+| 8      | Display file content from HDFS                 | hdfs dfs -cat /myfile/newfile.txt                                    |
+| 9      | Display last few lines of a file in HDFS       | hdfs dfs -tail /myfile/newfile.txt                                   |
+| 10     | Delete file from HDFS                          | hdfs dfs -rm /myfile/newfile.txt                                     |
