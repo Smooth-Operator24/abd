@@ -1,5 +1,6 @@
 | Sr No | Description                                  | Command                                                                             |
-| ----- | -------------------------------------------- | ----------------------------------------------------------------------------------- |
+| ----- | -------------------------------------------- | ----------------------------------------------------------------------------------- |mongosh
+
 | 1     | Show all databases                           | show dbs;                                                                           |
 | 2     | Create or switch to a database               | use database_name;                                                                  |
 | 3     | Show all collections in the current database | show collections;                                                                   |
